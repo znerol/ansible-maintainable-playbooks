@@ -2,8 +2,9 @@ Intro
 =====
 
 This short guide presents one of many ways to structure ansible playbooks and
-inventories for small fleets (i.e., file based inventory). Some of the ideas
-presented here contradict the official `Best Practices`_ document (read it
+inventories for small fleets (i.e., file based inventory). The ideas presented
+here have a strong focus on simplicity and maintainability. As a result the
+document partially contradict the official `Best Practices`_ (read them
 nevertheless).
 
 Basic knowledge about ansible and its `Command Line Tools`_ is a prerequisite.
