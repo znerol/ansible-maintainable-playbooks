@@ -1,0 +1,7 @@
+#!/usr/bin/env ansible-playbook
+- name: Example minimal play (inline tasks, without roles)
+  hosts: localhost
+  tasks:
+    - name: Display debug message
+      debug:
+        msg: Hello!

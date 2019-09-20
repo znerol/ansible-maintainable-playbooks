@@ -1,0 +1,6 @@
+#!/usr/bin/env ansible-playbook
+- name: Example minimal play (with import_role task)
+  hosts: localhost
+  tasks:
+    - import_role:
+        name: hello

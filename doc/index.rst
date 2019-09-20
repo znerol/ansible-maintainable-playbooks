@@ -11,6 +11,7 @@ Welcome to Maintainable Playbooks Guide
    :caption: Contents:
 
    intro
+   simple
 
 
 

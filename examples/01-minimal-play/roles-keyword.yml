@@ -1,0 +1,5 @@
+#!/usr/bin/env ansible-playbook
+- name: Example minimal play (with roles keyword)
+  hosts: localhost
+  roles:
+    - hello
