@@ -1,0 +1,13 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Time synchronization and clock set on all systems
+  hosts: infra-time
+  tags:
+    - infra
+  tasks:
+    - name: Timezone set
+      tags:
+        - configuration
+      timezone:
+        name: "{{ infra_timezone }}"
+

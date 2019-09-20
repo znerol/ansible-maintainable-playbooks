@@ -1,0 +1,11 @@
+all:
+  children:
+    infra_time:
+      children:
+        location_us:
+          vars:
+            infra_timezone: America/Los_Angeles
+
+        location_eu:
+          vars:
+            infra_timezone: Europe/Berlin

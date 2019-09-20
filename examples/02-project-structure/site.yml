@@ -1,0 +1,4 @@
+#!/usr/bin/env ansible-playbook
+---
+- import_playbook: infra-time.yml
+- import_playbook: app-web.yml

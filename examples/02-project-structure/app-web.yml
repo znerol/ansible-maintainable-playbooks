@@ -1,0 +1,17 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Webserver installed on web fleet
+  hosts: app-web
+  tags:
+    - app
+  tasks:
+    - name: Packages installed
+      tags:
+        - packages
+      loop:
+        - nginx
+        - certbot
+      package:
+        name: "{{ item }}"
+        state: present
+

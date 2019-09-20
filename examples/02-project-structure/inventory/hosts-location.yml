@@ -1,0 +1,13 @@
+---
+all:
+  children:
+    location_eu:
+      hosts:
+        web1-eu.example.com: {}
+        fw-eu.example.com: {}
+        legacy.example.com: {}
+
+    location_us:
+      hosts:
+        web1-us.example.com: {}
+        fw-us.example.com: {}

@@ -1,4 +1,4 @@
-Simple playbook
+Simple Playbook
 ===============
 
 A playbook consists of a list of plays. A play specifies a set of hosts and a
@@ -47,8 +47,107 @@ complexity. Especially:
    hand full of tasks. A playbook (or parts of it) can later be *extracted*
    into a role if necessary.
 
+
+Tidy Inventory
+==============
+
+The ansible inventory is a list of hosts and host groups together with
+associated variables generated from all inventory sources prior to every
+playbook run.
+
+If a directory is specified using the ``--inventory`` option when running one
+of the ansible commands, then all the files found in that directory are merged
+into one runtime inventory structure (See `Using multiple inventory sources`_
+section in the users guide for details).
+
+.. Tip:: Inspect the Inventory
+
+   Use the ``ansible-inventory --list`` and ``ansible-inventory --host=example.com``
+   commands to inspect the merged inventory including all variables specified
+   by inventory sources. Try the ``--yaml`` flag for more readable output.
+
+Ansible supports a whole lot of file formats and dynamic inventory sources out
+of the box via `Inventory Plugins`_. Still, many examples feature single-file
+INI-style inventories -- probably for historical reasons.
+
+In addition to the inventory, ansible supports collecting variables from `Vars
+Plugins`_ before executing playbooks. In fact, the `host_vars` and `group_vars`
+constructs are implemented that way.
+
+.. Hint:: Define variables in one place only
+
+   The flexibility of ansible sometimes gets people confused, especially when
+   it comes to where variables are defined and maintained. Thus either define
+   them in the inventory *or* via `host_vars` / `group_vars` directories. Never
+   use both mechanisms in the same project.
+
+
+Maintainable Project Structure
+==============================
+
+Simplicity is key when setting up ansible infra projects. Otherwise code
+maintenance and troubleshooting efforts quickly eat up the benefits gained
+through automation.
+
+One of the problems the author observed in several ansible deployments is the
+fact that variable definitions are littered all over the code base (inventory
+files, group_vars, host_vars, role vars, role defaults, var files, etc.)
+
+Using the following rules, this problem can be mitigated quite a bit:
+
+# For each playbook create a separate inventory file (YAML format)
+# Add a group with the name of the playbook in the inventory file
+# Specify default values as group variables in the inventory file
+# Add single hosts or subgroups to the playbook group
+# Override variable values in host entries / subgroup entries of the playbook group
+# Reference the playbook group of the dedicated inventory file from the ``hosts`` keyword in the playbook.
+
+.. Important::
+
+   * Do not use `host_vars` and `group_vars`, those are covered by the YAML
+     inventory in this case.
+   * The same variable must only be defined in one inventory file. Sticking to
+     a naming pattern respecting (parts of) the file name helps.
+
+Some variables are not related to specific playbooks. E.g., configuration which
+specifies ssh connection parameters. Such parameters can be placed in a
+separate YAML file inside the inventory directory (e.g., ``ansible.yml``).
+
+Separate inventory files can also be added in order to specify host groups
+which can be reused from playbook specific inventory files. For example if the
+infra spans more than one location add a ``hosts-locations.yml`` file
+specifying location groups and member machines.
+
+An example setup might contain the following playbook related files:
+
+.. code-block::
+
+   infra-time.yml
+   inventory/playbook-infra-time.yml
+
+   app-web.yml
+   inventory/playbook-app-web.yml
+
+In addition one global playbook (``site.yml``) and some inventory files
+defining reusable host groups and specifying how ansible connects to some of
+the machines:
+
+.. code-block::
+
+   site.yml
+
+   inventory/ansible.yml
+   inventory/hosts-location.yml
+   inventory/hosts.yml
+
+See the `znerol/ansible-maintainable-playbooks`_ for the whole example.
+
 .. _Directory Layout: https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html#directory-layout
 .. _Galaxy: https://galaxy.ansible.com/docs/contributing/creating_role.html
 .. _Handler Execution: https://github.com/ansible/ansible/issues/10829
+.. _Inventory Plugins: https://docs.ansible.com/ansible/latest/plugins/inventory.html
 .. _Using Roles: https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#using-roles
+.. _Using multiple inventory sources: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#using-multiple-inventory-sources
 .. _Variable Precedence: https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#variable-precedence-where-should-i-put-a-variable
+.. _Vars Plugins: https://docs.ansible.com/ansible/latest/plugins/vars.html
+.. _znerol/ansible-maintainable-playbooks: https://github.com/znerol/ansible-maintainable-playbooks

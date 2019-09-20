@@ -1,0 +1,14 @@
+all:
+  children:
+    app_web:
+      vars:
+        web_domains:
+          - example.com
+          - example.net
+          - example.org
+
+      hosts:
+        web1-us.example.com: {}
+        web1-eu.example.com:
+          web_domains:
+            - example.eu

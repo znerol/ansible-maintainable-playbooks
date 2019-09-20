@@ -1,0 +1,14 @@
+---
+all:
+  vars:
+    ansible_user: ansible
+
+  children:
+    feature_ssh_user_root:
+      vars:
+        ansible_user: root
+
+      hosts:
+        legacy.example.com: {}
+        fw-eu.example.com: {}
+        fw-us.example.com: {}
