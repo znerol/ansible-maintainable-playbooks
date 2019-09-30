@@ -35,7 +35,9 @@ When the `roles` and `tasks` keywords are both specified in a play, then
 `tasks` are executed after including roles (see the `Using Roles`_ of the users
 guide).
 
-.. Hint:: Do not use the roles keyword
+.. Hint::
+
+   **Do not use the roles keyword**
 
    In order to make the order of execution explicit, it is arguably better to
    just avoid the `roles` keyword altogether and use `include_role` inside
@@ -51,7 +53,9 @@ complexity. Especially:
 * `Variable Precedence`_
 * `Handler Execution`_ (GH Issue #10829)
 
-.. Hint:: Do not create roles, extract them from playbooks
+.. Hint::
+
+   **Do not create roles, extract them from playbooks**
 
    A typical infrastructure setup starts with a certain amount of organization
    specific boilerplate which is common across the fleet. The recommended
@@ -90,7 +94,9 @@ In addition to the inventory, ansible supports collecting variables from `Vars
 Plugins`_ before executing playbooks. In fact, the `host_vars` and `group_vars`
 constructs are implemented that way.
 
-.. Hint:: Define variables in one place only
+.. Hint::
+
+   **Define variables in one place only**
 
    The flexibility of ansible sometimes gets people confused, especially when
    it comes to where variables are defined and maintained. Thus either define
