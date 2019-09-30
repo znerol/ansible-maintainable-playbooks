@@ -117,12 +117,12 @@ files, group_vars, host_vars, role vars, role defaults, var files, etc.)
 
 Using the following rules, this problem can be mitigated quite a bit:
 
-# For each playbook create a separate inventory file (YAML format)
-# Add a group with the name of the playbook in the inventory file
-# Specify default values as group variables in the inventory file
-# Add single hosts or subgroups to the playbook group
-# Override variable values in host entries / subgroup entries of the playbook group
-# Reference the playbook group of the dedicated inventory file from the ``hosts`` keyword in the playbook.
+1. For each playbook create a separate inventory file (YAML format)
+2. Add a group with the name of the playbook in the inventory file
+3. Specify default values as group variables in the inventory file
+4. Add single hosts or subgroups to the playbook group
+5. Override variable values in host entries / subgroup entries of the playbook group
+6. Reference the playbook group of the dedicated inventory file from the ``hosts`` keyword in the playbook.
 
 .. Important::
 
