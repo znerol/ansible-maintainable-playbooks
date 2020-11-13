@@ -40,7 +40,7 @@ guide).
    **Do not use the roles keyword**
 
    In order to make the order of execution explicit, it is arguably better to
-   just avoid the `roles` keyword altogether and use `include_role` inside
+   just avoid the `roles` keyword altogether and use `import_role` inside
    `tasks` exclusively.
 
 Official ansible documentation and large parts of the community alike often
