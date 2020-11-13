@@ -1,7 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
 - name: Webserver installed on web fleet
-  hosts: app-web
+  hosts: app_web
   tags:
     - app
   tasks:
@@ -14,4 +14,3 @@
       package:
         name: "{{ item }}"
         state: present
-
