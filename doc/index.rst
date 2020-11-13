@@ -137,18 +137,18 @@ separate YAML file inside the inventory directory (e.g., ``ansible.yml``).
 
 Separate inventory files can also be added in order to specify host groups
 which can be reused from playbook specific inventory files. For example if the
-infra spans more than one location add a ``hosts-locations.yml`` file
+infra spans more than one location add a ``hosts_locations.yml`` file
 specifying location groups and member machines.
 
 An example setup might contain the following playbook related files:
 
 ::
 
-   infra-time.yml
-   inventory/playbook-infra-time.yml
+   infra_time.yml
+   inventory/playbook_infra_time.yml
 
-   app-web.yml
-   inventory/playbook-app-web.yml
+   app_web.yml
+   inventory/playbook_app_web.yml
 
 In addition one global playbook (``site.yml``) and some inventory files
 defining reusable host groups and specifying how ansible connects to some of
@@ -159,7 +159,7 @@ the machines:
    site.yml
 
    inventory/ansible.yml
-   inventory/hosts-location.yml
+   inventory/hosts_location.yml
    inventory/hosts.yml
 
 See the `znerol/ansible-maintainable-playbooks`_ for the whole example.
