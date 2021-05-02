@@ -104,6 +104,80 @@ constructs are implemented that way.
    use both mechanisms in the same project.
 
 
+External Roles and Collections
+==============================
+
+It might be tempting to build up playbooks quickly by combining a couple of
+third-party roles and collections. However, in order to ensure that a
+dependency is *a)* compatible with existing code and *b)* safe to use (now and
+in the future), it is inevitable to thoroughly vet it beforehand.
+
+.. Hint::
+
+  **Non exhaustive list of checks when reviewing a new dependency**
+
+  - *Fitness*: Does the new dependency fit the use case exactly or only
+    partially. Will the project use all of the features or only some of them.
+  - *Maintenance*: Number and activity of maintainers and contributors
+    (GitHub: Insights / Contributors).
+  - *Releases*: Regular releases with reasonable size (Reviewability) scope (Bug
+    Fix, Feature, Breaking).
+  - *Popularity*: Number and activity of users.
+  - *Tests*: Presence of automated testing and test coverage.
+  - *Documentation*: Presence and accuracy of documentation.
+  - *Dependencies*: Whether or not additional this requires additional
+    dependencies not yet part of the project.
+  - *License*: Whether all of the code is released under a license which is
+    compatible with the project.
+  - *Code style*: Does code adhere to a consistent style, is it enforced by
+    (automated) tooling.
+  - *Correctness*: Are the important parts implemented correctly and with
+    appropriate means.
+  - *Robustness*: Does the implementation handle common errors correctly.
+
+
+Component reuse can be beneficial for the project *and* the community.
+However, third-party dependencies in the context of ansible essentially are
+granted *root access* to private infrastracture. Hence, it is vital to
+carefully control which roles and collections in which exact versions are
+effectively in use during each playbook run.
+
+
+.. Hint::
+
+   **Pin exact versions in requirements.yml for required dependencies**
+
+   When an external dependency is *required* to run a playbook, then specify it
+   using a ``requirements.yml`` file. Pin each dependency to an exact version
+   or commit hash.
+   
+   .. code-block:: yaml
+
+      ---
+      roles:
+        - name: systemli.coturn
+          version: 1.2.0
+      
+      collections:
+        - name: containers.podman
+          version: 1.5.0
+
+.. Hint::
+
+   **Specify roles_path and collections_path in project-level ansible.cfg**
+
+   Restrict roles and collections search paths in order to ensure that only
+   those dependencies are used which are required for a given project.
+
+   .. code-block:: ini
+
+      [defaults]
+      collections_path=vendor/collections
+      collections_paths=vendor/collections
+      roles_path=vendor/roles
+
+
+
 Maintainable Project Structure
 ==============================
 
